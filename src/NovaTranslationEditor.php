@@ -1,6 +1,6 @@
 <?php
 
-namespace Bernhardh\NovaTranslationEditor;
+namespace codebuglab\NovaTranslationEditor;
 
 use Illuminate\View\View;
 use Laravel\Nova\Nova;

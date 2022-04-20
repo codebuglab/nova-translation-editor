@@ -1,5 +1,5 @@
 {
-    "name": "bernhardh/nova-translation-editor",
+    "name": "codebuglab/nova-translation-editor",
     "description": "Laravel Nova translation editor",
     "keywords": [
         "laravel",
@@ -12,13 +12,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Bernhardh\\NovaTranslationEditor\\": "src/"
+            "codebuglab\\NovaTranslationEditor\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Bernhardh\\NovaTranslationEditor\\ToolServiceProvider"
+                "codebuglab\\NovaTranslationEditor\\ToolServiceProvider"
             ]
         }
     },

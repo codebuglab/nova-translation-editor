@@ -1,6 +1,6 @@
 <?php
 
-namespace Bernhardh\NovaTranslationEditor;
+namespace codebuglab\NovaTranslationEditor;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;

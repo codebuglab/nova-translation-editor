@@ -2,7 +2,7 @@
 
 This is a laravel nova package to manage/edit your translations. It depends on `spatie/laravel-translation-loader`.
 
-![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/codebuglab/nova-translation-editor/master/docs/screenshot.png)
 
 ## Features
 
@@ -24,8 +24,8 @@ First, make sure that you have installed and configured [spatie/laravel-translat
 Install this package with composer and publish the config
 
 ```
-composer require bernhardh/nova-translation-editor
-php artisan vendor:publish --provider="Bernhardh\NovaTranslationEditor\ToolServiceProvider"
+composer require codebuglab/nova-translation-editor
+php artisan vendor:publish --provider="codebuglab\NovaTranslationEditor\ToolServiceProvider"
 ```
 
 Add this nova tool to your NovaServiceProvider (`app/Providers/NovaServiceProvider.php`):
@@ -35,7 +35,7 @@ public function tools()
 {
     return [
         ...
-        new \Bernhardh\NovaTranslationEditor\NovaTranslationEditor()
+        new \codebuglab\NovaTranslationEditor\NovaTranslationEditor()
     ];
 }
 ```
@@ -64,7 +64,7 @@ Here you set, which languages you use. Default is `en`, but you can set other la
 
 You can filter each tab by key AND any string in (any) translation:
 
-![screenshot](https://raw.githubusercontent.com/bernhardh/nova-translation-editor/master/docs/filter.gif)
+![screenshot](https://raw.githubusercontent.com/codebuglab/nova-translation-editor/master/docs/filter.gif)
 
 ## Changelog
 
