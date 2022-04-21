@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeBugLab\NovaTranslationEditor;
+namespace codebuglab\NovaTranslationEditor;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
