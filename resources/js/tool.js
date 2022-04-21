@@ -3,7 +3,7 @@ Nova.booting((Vue, router, store) => {
     {
       name: "nova-translation-editor",
       path: "/nova-translation-editor",
-      component: require("./components/Tool.vue"),
+      component: require("./components/Tool"),
     },
   ]);
 });
