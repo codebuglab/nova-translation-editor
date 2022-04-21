@@ -5,8 +5,11 @@
         <heading :level="2" class="border-b border-40 py-4 px-2">{{ __('Create') }} "{{ group }}"</heading>
 
         <div class="p-3">
-          <label class="inline-block text-80 mb-2 leading-tight nova-form-label">{{ __('Key of new translation') }}</label><br>
-          <input type="text" ref="keyNameInput" required class="w-full form-control form-input form-input-bordered" v-model="keyName">
+          <label class="inline-block text-80 mb-2 leading-tight nova-form-label">{{
+            __('Key of new translation')
+          }}</label><br>
+          <input type="text" ref="keyNameInput" required class="w-full form-control form-input form-input-bordered"
+            v-model="keyName">
         </div>
       </div>
       <div class="bg-30 px-6 py-3 flex">
@@ -42,8 +45,8 @@ export default {
     },
     handleSubmit() {
       this.keyName = this.keyName.trim();
-      if(this.existingKeys.indexOf(this.keyName) != -1) {
-        this.$toasted.show('This key is already in use', {type: 'error'});
+      if (this.existingKeys.indexOf(this.keyName) != -1) {
+        this.$toasted.show('This key is already in use', { type: 'error' });
       }
       else {
         this.$emit('create', this.keyName)
