@@ -15,7 +15,7 @@ class NovaTranslationEditor extends Tool
      */
     public function boot()
     {
-        Nova::script('nova-translation-editor', __DIR__.'/../dist/js/tool.js');
+        Nova::script('translation-editor', __DIR__.'/../dist/js/tool.js');
     }
 
     /**
@@ -25,6 +25,6 @@ class NovaTranslationEditor extends Tool
      */
     public function renderNavigation()
     {
-        return view('nova-translation-editor::navigation');
+        return view('translation-editor::navigation');
     }
 }

@@ -21,7 +21,7 @@ class NovaTranslationEditorController extends Controller
      */
     public function index(Request $request)
     {
-        $config = config('nova-translation-editor');
+        $config = config('translation-editor');
         $groups = $config['groups'] ?: [];
         $languages = $config['languages'] ?: ['en'];
         $response = [

@@ -70,7 +70,7 @@
     <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
 
     <div v-if="!showTable && loaded" class="toasted nova error">
-      <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
+      <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/translation-editor.php` config file.</p>
       <p>Please add at least one group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
     </div>
   </div>
@@ -90,7 +90,7 @@ export default {
   data: () => {
     return {
       title: 'Nova Translation Editor',
-      apiUrl: '/nova-vendor/nova-translation-editor/',
+      apiUrl: '/nova-vendor/translation-editor/',
       translations: null,
       changedTranslations: [],
       currentGroup: null,
