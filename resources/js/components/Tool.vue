@@ -7,55 +7,54 @@
         <label class="inline-block text-80 pt-2 leading-tight">{{ __('Filter') }}</label>
       </div>
       <div class="w-4/5 py-2 px-8 relative">
-        <span v-if="filterString" @click="filterString = ''"
-          class="cursor-pointer text-primary absolute clear-filter-icon" :title="__('Clear filter')">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </span>
-        <input type="text" :placeholder="__('Filter') + ': ' + __('By key or translation')"
-          class="w-full form-control form-input form-input-bordered" v-model="filterString">
+            <span
+                v-if="filterString"
+                @click="filterString = ''"
+                class="cursor-pointer text-primary absolute clear-filter-icon"
+                :title="__('Clear filter')">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </span>
+        <input type="text"
+               :placeholder="__('Filter') + ': By key or translation'"
+               class="w-full form-control form-input form-input-bordered"
+               v-model="filterString">
       </div>
     </div>
 
     <card v-if="showTable" class="my-6">
-      <nav
-        class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden text-center cursor-pointer whitespace-nowrap">
-        <a v-for="(translation, group) in filteredTranslations" :key="group"
-          :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
-          class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
-          @click="currentGroup = group">
-          {{ group }}&nbsp;({{ Object.keys(translation).length }})
-        </a>
+      <nav class="bg-white px-8 pt-2 border-b-2 border-50 overflow-x-auto overflow-y-hidden text-center cursor-pointer whitespace-nowrap">
+          <a v-for="(translation, group) in filterdTranslations" :key="group"
+              :class="currentGroup === group ? 'text-primary border-primary' : ' text-grey border-transparent'"
+              class="no-underline border-b-2 uppercase tracking-wide font-bold text-s py-3 mx-2 px-3 inline-block"
+              @click="currentGroup = group">
+            {{ group }}&nbsp;({{ Object.keys(translation).length }})
+          </a>
       </nav>
 
-      <div v-for="(translation, group) in filteredTranslations" :key="group + 'tab'" class="overflow-x-auto">
-        <table class="table w-full" v-if="currentGroup === group">
+      <div v-for="(translation, group) in filterdTranslations" v-if="currentGroup === group" :key="group + 'tab'" class="overflow-x-auto">
+        <table class="table w-full">
           <thead>
-            <tr>
-              <th class="text-left">Key</th>
-              <th class="text-left" v-for="lang in languages" :key="lang + 'tab'">Translation&nbsp;{{ lang }}</th>
-            </tr>
+          <tr>
+            <th class="text-left">Key</th>
+            <th class="text-left" v-for="lang in languages">Translation&nbsp;{{ lang }}</th>
+          </tr>
           </thead>
           <tbody>
-            <tr v-for="(trans, key) in translation" :key="key + 'tab'">
-              <td class="text-left py-2">
-                {{ key }}
-                <p class="text-xs	mt-2 text-dark-grey">{{ group }}.{{ key }}</p>
-              </td>
-              <td class="text-left" v-for="lang in languages" :key="lang + 'tab'">
-                <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]"
-                  @input="translationChanged(group, key, lang, $event)" />
-              </td>
-            </tr>
+          <tr v-for="(trans, key) in translation">
+            <td class="text-left py-2">
+              {{ key }}
+              <p class="text-xs	mt-2 text-dark-grey">{{ group}}.{{ key}}</p>
+            </td>
+            <td class="text-left" v-for="lang in languages">
+              <textarea class="w-full form-input form-input-bordered py-3 m-1 h-auto" v-model="trans[lang]" @input="translationChanged(group, key, lang, $event)" />
+            </td>
+          </tr>
           </tbody>
         </table>
 
         <div class="text-center p-3">
           <button class="btn btn-default btn-primary" @click="showNewModal = true">Add row</button>
-          <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }}
-            "{{ currentGroup }}"</button>
+          <button class="btn btn-default btn-primary mr-3" type="button" @click="save(currentGroup)">{{ __('Save') }} "{{ currentGroup }}"</button>
         </div>
       </div>
     </card>
@@ -68,12 +67,10 @@
       <button class="btn btn-default btn-primary" type="button" @click="save()">{{ __('Save all') }}</button>
     </div>
 
-    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false"
-      @create="addRow"></add-row-modal>
+    <add-row-modal :group="currentGroup" :existing-keys="existingKeys" v-if="showNewModal" @close="showNewModal = false" @create="addRow"></add-row-modal>
 
     <div v-if="!showTable && loaded" class="toasted nova error">
-      <p class="mb-2">You have not translation groups (aka translation file) activated in your
-        `config/nova-translation-editor.php` config file.</p>
+      <p class="mb-2">You have not translation groups (aka translation file) activated in your `config/nova-translation-editor.php` config file.</p>
       <p>Please add at least one group to the `groups` array element (for example `auth`, `validation`, etc.).</p>
     </div>
   </div>
@@ -84,7 +81,7 @@
 
 import AddRowModal from "./AddRowModal";
 export default {
-  components: { AddRowModal },
+  components: {AddRowModal},
   metaInfo() {
     return {
       title: this.title + ' - ' + this.currentGroup
@@ -92,7 +89,7 @@ export default {
   },
   data: () => {
     return {
-      title: __('Nova Translation Editor'),
+      title: 'Nova Translation Editor',
       apiUrl: '/nova-vendor/nova-translation-editor/',
       translations: null,
       changedTranslations: [],
@@ -114,19 +111,19 @@ export default {
     showTable() {
       return this.translations && Object.keys(this.translations).length > 0;
     },
-    filteredTranslations() {
+    filterdTranslations() {
       let filtered = {};
 
-      if (this.filterString) {
-        for (let groupName in this.translations) {
+      if(this.filterString) {
+        for(let groupName in this.translations) {
           const group = this.translations[groupName];
           filtered[groupName] = {};
 
-          for (let key in group) {
-            for (let lang in group[key]) {
+          for(let key in group) {
+            for(let lang in group[key]) {
               const text = group[key][lang],
                 reg = new RegExp(this.filterString, 'i');
-              if (text.match(reg) || key.match(reg)) {
+              if(text.match(reg) || key.match(reg)) {
                 filtered[groupName][key] = group[key];
               }
             }
@@ -153,15 +150,15 @@ export default {
     },
 
     search(value, key) {
-      if (key && key.search(this.filterString) >= 0) {
+      if(key && key.search(this.filterString) >= 0) {
         return value;
       }
 
-      for (let lang in value) {
+      for(let lang in value) {
         const trans = value[lang];
 
-        if (typeof trans === 'string') {
-          if (trans.search(this.filterString) >= 0) {
+        if(typeof trans === 'string') {
+          if(trans.search(this.filterString) >= 0) {
             return value;
           }
         }
@@ -175,10 +172,10 @@ export default {
 
     addRow(name) {
       let row = {};
-      for (let i in this.languages) {
+      for(let i in this.languages) {
         row[this.languages[i]] = '';
       }
-      if (typeof this.translations[this.currentGroup] === 'object') {
+      if(typeof this.translations[this.currentGroup] === 'object') {
         this.translations[this.currentGroup] = {}
       }
       this.$set(this.translations[this.currentGroup], name, row);
@@ -188,24 +185,26 @@ export default {
     save(group) {
       let data = {};
 
-      if (group) {
+      if(group) {
         data[group] = this.changedTranslations[group]
       }
       else {
-        data = this.changedTranslations;
+        for(let i in this.changedTranslations) {
+          data[i] = this.changedTranslations[i]
+        }
       }
 
-      Nova.request().post(this.apiUrl + 'save', { data: data }).then(response => {
-        this.$toasted.show('Saved', { type: 'success' });
+      Nova.request().post(this.apiUrl + 'save', {data: data}).then(response => {
+        this.$toasted.show('Saved', {type: 'success'});
       }).catch(error => {
-        this.$toasted.show(error, { type: 'error' });
+        this.$toasted.show(error, {type: 'error'});
       });
     },
 
     translationChanged(group, key, lang, event) {
-      this.changedTranslations[group] = this.changedTranslations[group] || {};
-      this.changedTranslations[group][key] = this.changedTranslations[group][key] || this.translations[group][key];
-      this.changedTranslations[group][key][lang] = event.target.value;
+        this.changedTranslations[group] = this.changedTranslations[group] || {};
+        this.changedTranslations[group][key] = this.changedTranslations[group][key] || this.translations[group][key];
+        this.changedTranslations[group][key][lang] = event.target.value;
     }
   }
 }
@@ -216,11 +215,9 @@ export default {
   right: 2.5rem;
   top: 1rem;
 }
-
 textarea {
   min-width: 220px;
 }
-
 .whitespace-nowrap {
   white-space: nowrap;
 }
